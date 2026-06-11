@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Projects — Kinetic Wave Solutions</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.page-hero {
+  height: 60vh; min-height: 400px;
+  position: relative; display: flex; align-items: flex-end;
+  padding: 0 5vw 5rem; overflow: hidden;
+}
+.ph-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1600&q=85') center/cover no-repeat;
+}
+.ph-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,20,5,0.78) 0%, rgba(10,20,5,0.2) 55%);
+}
+.ph-content { position: relative; z-index: 2; }
+.ph-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 1rem; display: block; }
+.ph-title { font-family: var(--serif); font-weight: 400; font-size: clamp(2.5rem,6vw,5rem); color: var(--white); line-height: 1.05; }
+.ph-title em { font-style: italic; }
+
+/* STATS STRIP */
+#stats-strip {
+  display: grid; grid-template-columns: repeat(5,1fr);
+  background: var(--green);
+}
+.ss-item {
+  padding: 2rem;
+  border-right: 1px solid rgba(255,255,255,0.2);
+  text-align: center;
+}
+.ss-item:last-child { border-right: none; }
+.ss-n {
+  font-family: var(--serif); font-size: 2.5rem;
+  color: var(--white); line-height: 1; margin-bottom: 0.3rem;
+}
+.ss-l {
+  font-family: var(--mono); font-size: 0.56rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+}
+
+/* PROJECTS GRID */
+#proj-section {
+  padding: 7rem 5vw;
+  background: var(--white);
+}
+.proj-head {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 3rem; align-items: end; margin-bottom: 4rem;
+}
+.proj-cards {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  gap: 1.5rem;
+}
+.proj-card {
+  background: var(--offwhite); border-radius: 4px;
+  padding: 2.5rem 2rem;
+  border-left: 3px solid transparent;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: start;
+}
+.proj-card:hover { border-left-color: var(--green); box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+.proj-card-n {
+  font-family: var(--serif); font-style: italic;
+  font-size: 2.5rem; color: rgba(125,197,39,0.2); line-height: 1;
+  min-width: 38px; text-align: right; padding-top: 0.1rem;
+}
+.proj-card-cat {
+  font-family: var(--mono); font-size: 0.56rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 0.4rem;
+}
+.proj-card-title {
+  font-family: var(--serif); font-size: 1.25rem;
+  color: var(--text); margin-bottom: 0.4rem; line-height: 1.15;
+}
+.proj-card-scope { font-size: 0.84rem; color: var(--muted); }
+.proj-card-contractor {
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(0,0,0,0.2); margin-top: 0.6rem;
+}
+
+/* FULL TABLE */
+#table-section {
+  padding: 0 5vw 7rem;
+  background: var(--white);
+}
+.ts-label {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 1.5rem;
+  padding-top: 3rem; border-top: 1px solid var(--border);
+}
+table.ref-tbl { width: 100%; border-collapse: collapse; }
+.ref-tbl th {
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); padding: 0.9rem 1.2rem;
+  text-align: left; border-bottom: 1px solid var(--border);
+}
+.ref-tbl td {
+  padding: 1.05rem 1.2rem; font-size: 0.85rem;
+  color: var(--muted); border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+.ref-tbl tr:hover td { color: var(--text); background: var(--offwhite); }
+.ref-tbl .dot {
+  display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--green);
+  margin-right: 0.6rem; opacity: 0.6; vertical-align: middle;
+}
+.ref-tbl .badge {
+  font-family: var(--mono); font-size: 0.54rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1px solid rgba(125,197,39,0.3);
+  color: var(--green); padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+/* FEATURED */
+#featured {
+  background: var(--dark);
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 520px;
+}
+.feat-img {
+  background: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=900&q=80') center/cover no-repeat;
+  position: relative; min-height: 400px;
+}
+.feat-img::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to right, transparent 60%, var(--dark) 100%);
+}
+.feat-body {
+  padding: 6rem 5vw;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.feat-label {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 1rem;
+  display: inline-block; background: rgba(125,197,39,0.12);
+  padding: 0.3rem 0.8rem; border-radius: 999px;
+}
+.feat-h {
+  font-family: var(--serif); font-weight: 400; font-style: italic;
+  font-size: clamp(2rem,3.5vw,3rem); color: var(--white);
+  line-height: 1.1; margin-bottom: 1.5rem;
+}
+.feat-p { font-size: 0.9rem; color: rgba(255,255,255,0.45); line-height: 1.8; margin-bottom: 2rem; }
+.feat-details {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  margin-bottom: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding-top: 1.5rem;
+}
+.fd-label {
+  font-family: var(--mono); font-size: 0.54rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); margin-bottom: 0.3rem;
+}
+.fd-val { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+
+@media(max-width:860px) {
+  #stats-strip { grid-template-columns: 1fr 1fr; }
+  #proj-section { padding: 4rem 1.2rem; }
+  .proj-head { grid-template-columns: 1fr; }
+  .proj-cards { grid-template-columns: 1fr; }
+  #table-section { padding: 0 1.2rem 4rem; overflow-x: auto; }
+  #featured { grid-template-columns: 1fr; }
+  .feat-img { min-height: 240px; }
+  .feat-body { padding: 3rem 1.2rem; }
+}
+</style>
+</head>
+<body data-page="projects" data-solidnav="1">
+<div style="padding-top:72px">
+
+<div class="page-hero">
+  <div class="ph-bg"></div>
+  <div class="ph-content">
+    <span class="ph-label">Track Record</span>
+    <h1 class="ph-title">Previous<br/><em>Projects</em></h1>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div id="stats-strip">
+  <div class="ss-item reveal"><div class="ss-n">11</div><div class="ss-l">Homes Completed</div></div>
+  <div class="ss-item reveal d1"><div class="ss-n">30+</div><div class="ss-l">Happy Clients</div></div>
+  <div class="ss-item reveal d2"><div class="ss-n">4</div><div class="ss-l">Provinces Served</div></div>
+  <div class="ss-item reveal d3"><div class="ss-n">3</div><div class="ss-l">Project Types</div></div>
+  <div class="ss-item reveal d4"><div class="ss-n">0</div><div class="ss-l">Redos Needed</div></div>
+</div>
+
+<!-- PROJECT CARDS -->
+<section id="proj-section">
+  <div class="proj-head">
+    <div class="reveal">
+      <span class="label-tag">All Work</span>
+      <h2 class="section-h">Our <em>Projects</em></h2>
+    </div>
+    <p class="section-p reveal d1">From private residences in Midrand to industrial mines in Limpopo — every project delivered to the highest standard.</p>
+  </div>
+  <div class="proj-cards">
+    <div class="proj-card reveal">
+      <div class="proj-card-n">01</div>
+      <div>
+        <div class="proj-card-cat">Residential</div>
+        <div class="proj-card-title">Garven &mdash; Midrand Waterfall</div>
+        <div class="proj-card-scope">Full electrical installation to entire private residence</div>
+        <div class="proj-card-contractor">Private</div>
+      </div>
+    </div>
+    <div class="proj-card reveal d1">
+      <div class="proj-card-n">02</div>
+      <div>
+        <div class="proj-card-cat">Commercial</div>
+        <div class="proj-card-title">Ocean Basket &mdash; Centurion Mall</div>
+        <div class="proj-card-scope">Electrical installation and maintenance</div>
+        <div class="proj-card-contractor">Commercial Contractor</div>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <div class="proj-card-n">03</div>
+      <div>
+        <div class="proj-card-cat">Maintenance</div>
+        <div class="proj-card-title">Blue Print &mdash; Booysen Warehouse</div>
+        <div class="proj-card-scope">Electrical maintenance of warehouse facility</div>
+        <div class="proj-card-contractor">Blueprint Electrical</div>
+      </div>
+    </div>
+    <div class="proj-card reveal d1">
+      <div class="proj-card-n">04</div>
+      <div>
+        <div class="proj-card-cat">Commercial</div>
+        <div class="proj-card-title">Tiger Brands &mdash; Bryanston</div>
+        <div class="proj-card-scope">Installation and maintenance services</div>
+        <div class="proj-card-contractor">Blueprint Electrical</div>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <div class="proj-card-n">05</div>
+      <div>
+        <div class="proj-card-cat">Commercial</div>
+        <div class="proj-card-title">PCM &mdash; Kempton Park</div>
+        <div class="proj-card-scope">Commercial electrical installation</div>
+        <div class="proj-card-contractor">Commercial</div>
+      </div>
+    </div>
+    <div class="proj-card reveal d1">
+      <div class="proj-card-n">06</div>
+      <div>
+        <div class="proj-card-cat">Commercial</div>
+        <div class="proj-card-title">Media 24 &mdash; Sandton</div>
+        <div class="proj-card-scope">Installation and ongoing maintenance</div>
+        <div class="proj-card-contractor">BasselHoldt</div>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <div class="proj-card-n">07</div>
+      <div>
+        <div class="proj-card-cat">Industrial</div>
+        <div class="proj-card-title">Burgersfort Steelpoort Mine</div>
+        <div class="proj-card-scope">Heavy-duty industrial electrical installation</div>
+        <div class="proj-card-contractor">Blueprint Electrical</div>
+      </div>
+    </div>
+    <div class="proj-card reveal d1">
+      <div class="proj-card-n">08</div>
+      <div>
+        <div class="proj-card-cat">Commercial</div>
+        <div class="proj-card-title">Mercedes-Benz &mdash; Sandton &amp; Rosebank</div>
+        <div class="proj-card-scope">Installation and maintenance at two dealerships</div>
+        <div class="proj-card-contractor">Blueprint Electrical</div>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <div class="proj-card-n">09</div>
+      <div>
+        <div class="proj-card-cat">Residential</div>
+        <div class="proj-card-title">Henry &mdash; Waterfall Midrand</div>
+        <div class="proj-card-scope">Standby generator installation</div>
+        <div class="proj-card-contractor">Private</div>
+      </div>
+    </div>
+    <div class="proj-card reveal d1">
+      <div class="proj-card-n">10</div>
+      <div>
+        <div class="proj-card-cat">Maintenance</div>
+        <div class="proj-card-title">Mr Budeli &mdash; Winchester Hills</div>
+        <div class="proj-card-scope">Private residence maintenance</div>
+        <div class="proj-card-contractor">Private</div>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <div class="proj-card-n">11</div>
+      <div>
+        <div class="proj-card-cat">Residential</div>
+        <div class="proj-card-title">Lebo &mdash; Midrand Waterfall</div>
+        <div class="proj-card-scope">Full electrical installation to entire residence</div>
+        <div class="proj-card-contractor">Private</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENCE TABLE -->
+<div id="table-section" class="reveal">
+  <div class="ts-label">Complete Reference Table</div>
+  <table class="ref-tbl">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Client / Location</th>
+        <th>Scope of Work</th>
+        <th>Category</th>
+        <th>Contractor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>01</td><td><span class="dot"></span>Garven &mdash; Midrand Waterfall</td><td>Full electrical installation</td><td><span class="badge">Residential</span></td><td>Private</td></tr>
+      <tr><td>02</td><td><span class="dot"></span>Ocean Basket &mdash; Centurion Mall</td><td>Installation &amp; maintenance</td><td><span class="badge">Commercial</span></td><td>Commercial Contractor</td></tr>
+      <tr><td>03</td><td><span class="dot"></span>Blue Print &mdash; Booysen Warehouse</td><td>Maintenance</td><td><span class="badge">Maintenance</span></td><td>Blueprint Electrical</td></tr>
+      <tr><td>04</td><td><span class="dot"></span>Tiger Brands &mdash; Bryanston</td><td>Installation &amp; maintenance</td><td><span class="badge">Commercial</span></td><td>Blueprint Electrical</td></tr>
+      <tr><td>05</td><td><span class="dot"></span>PCM &mdash; Kempton Park</td><td>Commercial installation</td><td><span class="badge">Commercial</span></td><td>Commercial</td></tr>
+      <tr><td>06</td><td><span class="dot"></span>Media 24 &mdash; Sandton</td><td>Installation &amp; maintenance</td><td><span class="badge">Commercial</span></td><td>BasselHoldt</td></tr>
+      <tr><td>07</td><td><span class="dot"></span>Burgersfort Steelpoort Mine</td><td>Industrial installation</td><td><span class="badge">Industrial</span></td><td>Blueprint Electrical</td></tr>
+      <tr><td>08</td><td><span class="dot"></span>Mercedes-Benz &mdash; Sandton &amp; Rosebank</td><td>Installation &amp; maintenance</td><td><span class="badge">Commercial</span></td><td>Blueprint Electrical</td></tr>
+      <tr><td>09</td><td><span class="dot"></span>Henry &mdash; Waterfall Midrand</td><td>Generator installation</td><td><span class="badge">Residential</span></td><td>Private</td></tr>
+      <tr><td>10</td><td><span class="dot"></span>Mr Budeli &mdash; Winchester Hills</td><td>Maintenance</td><td><span class="badge">Residential</span></td><td>Private</td></tr>
+      <tr><td>11</td><td><span class="dot"></span>Lebo &mdash; Midrand Waterfall</td><td>Full electrical installation</td><td><span class="badge">Residential</span></td><td>Private</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FEATURED PROJECT -->
+<section id="featured">
+  <div class="feat-img"></div>
+  <div class="feat-body reveal">
+    <span class="feat-label">Featured Project</span>
+    <h2 class="feat-h">Burgersfort<br/>Steelpoort Mine</h2>
+    <p class="feat-p">One of our most demanding projects — a full industrial electrical installation at a working mine in Limpopo. Completed to the highest safety and compliance standards in collaboration with Blueprint Electrical, this project demonstrated our capacity to deliver quality work under demanding industrial conditions.</p>
+    <div class="feat-details">
+      <div><div class="fd-label">Type</div><div class="fd-val">Industrial Installation</div></div>
+      <div><div class="fd-label">Location</div><div class="fd-val">Burgersfort, Limpopo</div></div>
+      <div><div class="fd-label">Contractor</div><div class="fd-val">Blueprint Electrical</div></div>
+      <div><div class="fd-label">Sector</div><div class="fd-val">Mining &amp; Industrial</div></div>
+    </div>
+    <a href="contact.html" class="pill-btn" style="align-self:flex-start">Start Your Project</a>
+  </div>
+</section>
+
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

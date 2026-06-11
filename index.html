@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Kinetic Wave Solutions — Modern Energy</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+
+/* ── HERO ── */
+#hero {
+  height: 100vh; min-height: 600px;
+  position: relative;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1800&q=90')
+    center 60% / cover no-repeat;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(10,20,5,0.38) 0%,
+    rgba(10,20,5,0.25) 50%,
+    rgba(10,20,5,0.55) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 760px; padding: 0 2rem;
+}
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 0.65rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+}
+.hero-h1 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 1.05; color: var(--white);
+  margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+}
+.hero-h1 em { font-style: italic; }
+.hero-sub {
+  font-size: 1.05rem; line-height: 1.7;
+  color: rgba(255,255,255,0.78);
+  max-width: 520px; margin: 0 auto 2.5rem;
+  opacity: 0; animation: fadeUp 0.8s 0.7s forwards;
+}
+.hero-sub strong { color: var(--white); font-weight: 600; }
+.hero-btns {
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.8s 0.9s forwards;
+}
+
+/* scroll hint */
+.scroll-line {
+  position: absolute; bottom: 2.5rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  z-index: 2;
+}
+.scroll-line span {
+  font-family: var(--mono); font-size: 0.55rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.scroll-line::before {
+  content: '';
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));
+}
+
+/* stats bar */
+#stats-bar {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  background: var(--dark);
+}
+.sb-item {
+  padding: 2rem 3rem;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+}
+.sb-item:last-child { border-right: none; }
+.sb-n {
+  font-family: var(--serif); font-size: 2.8rem;
+  color: var(--green); line-height: 1; margin-bottom: 0.3rem;
+}
+.sb-l {
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+/* ── INTRO SPLIT ── */
+#intro {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 580px;
+}
+.intro-img {
+  background:
+    url('https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=900&q=80')
+    center / cover no-repeat;
+  min-height: 400px;
+}
+.intro-body {
+  background: var(--offwhite);
+  padding: 6rem 5vw;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.intro-body p { font-size: 0.95rem; line-height: 1.85; color: var(--muted); margin-bottom: 1.2rem; }
+.intro-body p strong { color: var(--text); font-weight: 600; }
+.intro-quote {
+  border-left: 3px solid var(--green);
+  padding-left: 1.2rem;
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.2rem; color: var(--text);
+  line-height: 1.4; margin: 2rem 0;
+}
+
+/* ── SERVICES CARDS ── */
+#services-home {
+  padding: 7rem 5vw;
+  background: var(--white);
+}
+.sh-head {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 3rem; align-items: end; margin-bottom: 4rem;
+}
+.sh-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+}
+.sh-card {
+  background: var(--offwhite);
+  padding: 2.5rem 2rem;
+  border-radius: 4px;
+  position: relative; overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.3s;
+  text-decoration: none; display: block;
+}
+.sh-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: var(--green);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s;
+}
+.sh-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.09); transform: translateY(-3px); }
+.sh-card:hover::after { transform: scaleX(1); }
+.sh-card-num {
+  font-family: var(--mono); font-size: 0.6rem;
+  letter-spacing: 0.14em; color: var(--green);
+  margin-bottom: 2rem;
+}
+.sh-card-title {
+  font-family: var(--serif); font-size: 1.6rem;
+  color: var(--text); margin-bottom: 1rem; line-height: 1.1;
+}
+.sh-card-body { font-size: 0.88rem; line-height: 1.7; color: var(--muted); }
+.sh-card-link {
+  font-family: var(--mono); font-size: 0.6rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--green); margin-top: 2rem; display: block;
+}
+
+/* ── VMV ── */
+#vmv {
+  background: var(--dark);
+  padding: 7rem 5vw;
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 0;
+}
+.vmv-item {
+  padding: 3rem 3rem 3rem 0;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  padding-right: 3rem;
+}
+.vmv-item:first-child { padding-left: 0; }
+.vmv-item:last-child { border-right: none; padding-right: 0; padding-left: 3rem; }
+.vmv-item:nth-child(2) { padding-left: 3rem; }
+.vmv-tag {
+  font-family: var(--mono); font-size: 0.6rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 1.2rem;
+}
+.vmv-h {
+  font-family: var(--serif); font-size: 2rem;
+  color: var(--white); margin-bottom: 1.2rem; line-height: 1.1;
+}
+.vmv-p { font-size: 0.88rem; color: rgba(255,255,255,0.45); line-height: 1.8; }
+
+/* ── PLUG SECTION ── */
+#plug {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 520px;
+}
+.plug-img {
+  background:
+    url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=900&q=80')
+    center / cover no-repeat;
+  min-height: 380px;
+  position: relative;
+}
+.plug-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(125,197,39,0.12) 0%, transparent 60%);
+}
+.plug-body {
+  background: var(--white);
+  padding: 6rem 5vw;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.plug-body p { font-size: 0.93rem; line-height: 1.85; color: var(--muted); margin-bottom: 1rem; }
+.plug-quote {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.25rem; color: var(--text);
+  line-height: 1.4; margin: 1.8rem 0;
+  border-left: 3px solid var(--green); padding-left: 1.2rem;
+}
+
+/* ── RECENT WORK ── */
+#recent-work {
+  padding: 7rem 5vw;
+  background: var(--offwhite);
+}
+.rw-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 2.5rem;
+}
+.rw-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem;
+}
+.rw-tile {
+  position: relative; overflow: hidden;
+  border-radius: 4px; cursor: pointer;
+  background: var(--dark);
+}
+.rw-tile-bg {
+  height: 260px; background-size: cover; background-position: center;
+  filter: brightness(0.7) saturate(0.6);
+  transition: filter 0.5s, transform 0.5s;
+}
+.rw-tile:hover .rw-tile-bg { filter: brightness(0.85) saturate(0.8); transform: scale(1.04); }
+.rw-tile-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.2rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent);
+}
+.rw-tile-tag {
+  font-family: var(--mono); font-size: 0.54rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 0.3rem;
+}
+.rw-tile-name {
+  font-family: var(--sans); font-weight: 500; font-size: 0.88rem;
+  color: var(--white);
+}
+
+/* ── CTA BAND ── */
+#cta-band {
+  background:
+    linear-gradient(rgba(10,30,5,0.75), rgba(10,30,5,0.75)),
+    url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1600&q=80')
+    center / cover no-repeat;
+  padding: 8rem 5vw;
+  text-align: center;
+}
+.cta-band-h {
+  font-family: var(--serif); font-weight: 400; font-style: italic;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  color: var(--white); margin-bottom: 1rem;
+}
+.cta-band-p {
+  font-size: 1rem; color: rgba(255,255,255,0.65);
+  margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media(max-width:860px) {
+  #intro, #plug { grid-template-columns: 1fr; }
+  .intro-img, .plug-img { min-height: 280px; order: -1; }
+  .intro-body, .plug-body { padding: 3rem 1.2rem; }
+  #stats-bar { grid-template-columns: 1fr 1fr; }
+  #services-home { padding: 4rem 1.2rem; }
+  .sh-head { grid-template-columns: 1fr; }
+  .sh-grid { grid-template-columns: 1fr; }
+  #vmv { grid-template-columns: 1fr; padding: 4rem 1.2rem; }
+  .vmv-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); padding: 2rem 0 !important; }
+  #recent-work { padding: 4rem 1.2rem; }
+  .rw-grid { grid-template-columns: 1fr 1fr; }
+  .rw-head { flex-direction: column; gap: 1rem; align-items: flex-start; }
+}
+</style>
+</head>
+<body data-page="index">
+<div style="padding-top:72px">
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Green Technology &bull; Electrical &bull; Solar</p>
+    <h1 class="hero-h1">Power your world<br/>with <em>clean energy</em></h1>
+    <p class="hero-sub">From <strong>electrical installation</strong> to <strong>solar off-grid systems</strong> to <strong>ongoing maintenance</strong> — we deliver quality work that leaves you with complete peace of mind.</p>
+    <div class="hero-btns">
+      <a href="services.html" class="pill-btn">Learn More</a>
+      <a href="contact.html" class="pill-btn outline">Get a Quote</a>
+    </div>
+  </div>
+  <div class="scroll-line"><span>Scroll</span></div>
+</section>
+
+<!-- STATS BAR -->
+<div id="stats-bar">
+  <div class="sb-item reveal"><div class="sb-n">11</div><div class="sb-l">Houses Completed</div></div>
+  <div class="sb-item reveal d1"><div class="sb-n">30+</div><div class="sb-l">Happy Clients</div></div>
+  <div class="sb-item reveal d2"><div class="sb-n">45c</div><div class="sb-l">Tax Saving per kWh</div></div>
+  <div class="sb-item reveal d3"><div class="sb-n">100%</div><div class="sb-l">Quality Commitment</div></div>
+</div>
+
+<!-- INTRO SPLIT -->
+<div id="intro">
+  <div class="intro-img"></div>
+  <div class="intro-body reveal">
+    <span class="label-tag">Who We Are</span>
+    <h2 class="section-h" style="margin-bottom:1.5rem">Built by<br/><em>entrepreneurs</em></h2>
+    <p>Kinetic Wave Solutions evolved from Kluetics Electrical into a focused green technology company. We took years of electrical expertise and redirected it with one ultimate goal — to be the best company in green technology.</p>
+    <p>As responsible corporate citizens, we shifted our focus to <strong>green technology</strong> to make the world a better place and better compete in the marketplace.</p>
+    <div class="intro-quote">"A project done right the first time is a project done right."</div>
+    <a href="about.html" class="pill-btn outline-dark" style="align-self:flex-start">Our Story</a>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services-home">
+  <div class="sh-head">
+    <div class="reveal">
+      <span class="label-tag">What We Do</span>
+      <h2 class="section-h">Our <em>services</em></h2>
+    </div>
+    <p class="section-p reveal d1">With years of experience across domestic, commercial, and industrial projects, we focus entirely on what we do best — so you can simply plug us in.</p>
+  </div>
+  <div class="sh-grid">
+    <a href="services.html" class="sh-card reveal">
+      <div class="sh-card-num">01 &mdash; Installation</div>
+      <div class="sh-card-title">Electrical Installation</div>
+      <p class="sh-card-body">Full electrical installation for domestic, industrial, and commercial buildings. Accredited electricians with Wireman's Licences on every project.</p>
+      <span class="sh-card-link">View Service &rarr;</span>
+    </a>
+    <a href="services.html" class="sh-card reveal d1">
+      <div class="sh-card-num">02 &mdash; Maintenance</div>
+      <div class="sh-card-title">Electrical Maintenance</div>
+      <p class="sh-card-body">Comprehensive maintenance of electrical systems to acceptable safety standards. Everything running correctly — peace of mind guaranteed.</p>
+      <span class="sh-card-link">View Service &rarr;</span>
+    </a>
+    <a href="services.html" class="sh-card reveal d2">
+      <div class="sh-card-num">03 &mdash; Solar</div>
+      <div class="sh-card-title">Off-Grid Solar</div>
+      <p class="sh-card-body">Solar panels, inverters, batteries, and LED lighting. Advise on saving electricity or going completely off-grid for a cleaner, cheaper future.</p>
+      <span class="sh-card-link">View Service &rarr;</span>
+    </a>
+  </div>
+</section>
+
+<!-- VISION / MISSION / VALUES -->
+<div id="vmv">
+  <div class="vmv-item reveal">
+    <div class="vmv-tag">Vision</div>
+    <div class="vmv-h">A Better World</div>
+    <p class="vmv-p">We seek to make the world a better place by educating and moving the average person into green technology — for future generations.</p>
+  </div>
+  <div class="vmv-item reveal d1">
+    <div class="vmv-tag">Mission</div>
+    <div class="vmv-h">Quality Work</div>
+    <p class="vmv-p">To be a provider of reliable and quality workmanship that leaves clients happy — and us with a healthy balance sheet.</p>
+  </div>
+  <div class="vmv-item reveal d2">
+    <div class="vmv-tag">Values</div>
+    <div class="vmv-h">Honesty Always</div>
+    <p class="vmv-p">Quality. Reliability. Professionalism. Accessibility. We believe in these values in everything we do.</p>
+  </div>
+</div>
+
+<!-- PLUG AND PLAY -->
+<div id="plug">
+  <div class="plug-img">
+    <div class="plug-img-overlay"></div>
+  </div>
+  <div class="plug-body reveal">
+    <span class="label-tag">How We Work</span>
+    <h2 class="section-h" style="margin-bottom:1.5rem">Small team.<br/><em>Big capability.</em></h2>
+    <p>With years of experience working with diverse groups of companies, we have narrowed our business into just our area of expertise — not trying to be everything to everyone.</p>
+    <p>Working with us means you worry less about the electricity side of things because we've got it covered. We deploy the best expertise and workmanship into every project, without compromise.</p>
+    <div class="plug-quote">"We seek to separate ourselves from the rest by delivering quality work that leaves you with peace of mind."</div>
+    <a href="about.html" class="pill-btn outline-dark" style="align-self:flex-start">More About Us</a>
+  </div>
+</div>
+
+<!-- RECENT WORK -->
+<section id="recent-work">
+  <div class="rw-head">
+    <div class="reveal">
+      <span class="label-tag">Selected Work</span>
+      <h2 class="section-h"><em>Recent</em> projects</h2>
+    </div>
+    <a href="gallery.html" class="pill-btn outline-dark reveal">View Full Gallery &rarr;</a>
+  </div>
+  <div class="rw-grid">
+    <div class="rw-tile reveal" onclick="location.href='gallery.html'">
+      <div class="rw-tile-bg" style="background-image:url('https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=600&q=80')"></div>
+      <div class="rw-tile-info"><div class="rw-tile-tag">Residential</div><div class="rw-tile-name">Midrand Waterfall</div></div>
+    </div>
+    <div class="rw-tile reveal d1" onclick="location.href='gallery.html'">
+      <div class="rw-tile-bg" style="background-image:url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&q=80')"></div>
+      <div class="rw-tile-info"><div class="rw-tile-tag">Solar</div><div class="rw-tile-name">Off-Grid System</div></div>
+    </div>
+    <div class="rw-tile reveal d2" onclick="location.href='gallery.html'">
+      <div class="rw-tile-bg" style="background-image:url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80')"></div>
+      <div class="rw-tile-info"><div class="rw-tile-tag">Commercial</div><div class="rw-tile-name">Centurion Mall</div></div>
+    </div>
+    <div class="rw-tile reveal d3" onclick="location.href='gallery.html'">
+      <div class="rw-tile-bg" style="background-image:url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80')"></div>
+      <div class="rw-tile-info"><div class="rw-tile-tag">Industrial</div><div class="rw-tile-name">Steelpoort Mine</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section id="cta-band" class="reveal">
+  <h2 class="cta-band-h">Ready to power your project?</h2>
+  <p class="cta-band-p">From a single home to a full industrial installation — we deliver quality work on time and on budget.</p>
+  <a href="contact.html" class="pill-btn">Get a Free Quote</a>
+</section>
+
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

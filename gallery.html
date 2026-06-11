@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Gallery — Kinetic Wave Solutions</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.page-hero {
+  height: 55vh; min-height: 380px;
+  position: relative; display: flex; align-items: flex-end;
+  padding: 0 5vw 5rem; overflow: hidden;
+}
+.ph-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1600&q=85') center/cover no-repeat;
+}
+.ph-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,20,5,0.72) 0%, rgba(10,20,5,0.2) 60%);
+}
+.ph-content { position: relative; z-index: 2; }
+.ph-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 1rem; display: block; }
+.ph-title { font-family: var(--serif); font-weight: 400; font-size: clamp(2.5rem,6vw,5rem); color: var(--white); line-height: 1.05; }
+.ph-title em { font-style: italic; }
+
+/* CATEGORY TABS */
+#category-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 5vw;
+  display: flex; gap: 0; overflow-x: auto;
+  position: sticky; top: 72px; z-index: 80;
+}
+.cat-tab {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); background: none; border: none;
+  padding: 1.2rem 1.6rem;
+  border-bottom: 2px solid transparent;
+  cursor: pointer; white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+.cat-tab:hover { color: var(--green); }
+.cat-tab.active { color: var(--green); border-bottom-color: var(--green); }
+
+/* MASONRY GALLERY */
+#gallery-wrap {
+  padding: 4rem 5vw;
+  background: var(--offwhite);
+}
+.masonry {
+  columns: 3; column-gap: 1rem;
+}
+.g-item {
+  break-inside: avoid; margin-bottom: 1rem;
+  position: relative; overflow: hidden;
+  border-radius: 4px; cursor: pointer;
+  background: var(--dark);
+  display: block;
+}
+.g-bg {
+  width: 100%; display: block;
+  background-size: cover; background-position: center;
+  filter: brightness(0.75) saturate(0.65);
+  transition: filter 0.5s, transform 0.5s;
+}
+.g-item.h1 .g-bg { height: 240px; }
+.g-item.h2 .g-bg { height: 320px; }
+.g-item.h3 .g-bg { height: 200px; }
+.g-item.h4 .g-bg { height: 390px; }
+.g-item.h5 .g-bg { height: 280px; }
+.g-item:hover .g-bg { filter: brightness(0.92) saturate(0.85); transform: scale(1.03); }
+.g-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.5rem 1.2rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, transparent 100%);
+  transform: translateY(100%);
+  transition: transform 0.38s cubic-bezier(.22,1,.36,1);
+}
+.g-item:hover .g-info { transform: translateY(0); }
+.g-cat {
+  font-family: var(--mono); font-size: 0.54rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 0.3rem;
+}
+.g-title { font-family: var(--sans); font-weight: 500; font-size: 0.9rem; color: var(--white); }
+
+/* LIGHTBOX */
+#lb {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(5,10,3,0.96);
+  display: none; align-items: center; justify-content: center;
+}
+#lb.open { display: flex; }
+.lb-inner { max-width: 920px; width: 92%; position: relative; cursor: default; }
+.lb-img { width: 100%; height: 540px; background-size: cover; background-position: center; border-radius: 2px; }
+.lb-cap {
+  padding: 1.2rem 0 0;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.lb-cat { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 0.2rem; }
+.lb-title { font-family: var(--serif); font-size: 1.3rem; color: var(--white); }
+.lb-close {
+  width: 40px; height: 40px; background: var(--green);
+  border: none; cursor: pointer; color: var(--dark); font-size: 1.1rem;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background 0.2s;
+}
+.lb-close:hover { background: var(--green2); }
+.lb-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  display: flex; justify-content: space-between;
+  width: calc(100% + 7rem); left: -3.5rem;
+  pointer-events: none;
+}
+.lb-arr {
+  width: 44px; height: 44px;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+  color: var(--white); font-size: 1rem;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; pointer-events: all; transition: background 0.2s;
+}
+.lb-arr:hover { background: var(--green); border-color: var(--green); }
+
+@media(max-width:860px) {
+  .masonry { columns: 2; }
+  #gallery-wrap { padding: 2rem 1.2rem; }
+}
+@media(max-width:500px) { .masonry { columns: 1; } }
+</style>
+</head>
+<body data-page="gallery" data-solidnav="1">
+<div style="padding-top:72px">
+
+<div class="page-hero">
+  <div class="ph-bg"></div>
+  <div class="ph-content">
+    <span class="ph-label">Our Work</span>
+    <h1 class="ph-title">Project<br/><em>Gallery</em></h1>
+  </div>
+</div>
+
+<!-- CATEGORY TABS -->
+<div id="category-bar">
+  <button class="cat-tab active" onclick="filter('all',this)">All Projects</button>
+  <button class="cat-tab" onclick="filter('residential',this)">Residential</button>
+  <button class="cat-tab" onclick="filter('commercial',this)">Commercial</button>
+  <button class="cat-tab" onclick="filter('industrial',this)">Industrial</button>
+  <button class="cat-tab" onclick="filter('solar',this)">Solar &amp; Green</button>
+  <button class="cat-tab" onclick="filter('maintenance',this)">Maintenance</button>
+</div>
+
+<!-- GALLERY -->
+<div id="gallery-wrap">
+  <div class="masonry" id="grid">
+
+    <div class="g-item h2 reveal" data-cat="residential" onclick="openLB(0)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Residential</div><div class="g-title">Midrand Waterfall — Garven Residence</div></div>
+    </div>
+    <div class="g-item h1 reveal d1" data-cat="solar" onclick="openLB(1)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Solar</div><div class="g-title">Off-Grid Solar System</div></div>
+    </div>
+    <div class="g-item h3 reveal d2" data-cat="commercial" onclick="openLB(2)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Commercial</div><div class="g-title">Ocean Basket — Centurion Mall</div></div>
+    </div>
+    <div class="g-item h4 reveal" data-cat="industrial" onclick="openLB(3)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Industrial</div><div class="g-title">Burgersfort Steelpoort Mine</div></div>
+    </div>
+    <div class="g-item h2 reveal d1" data-cat="commercial" onclick="openLB(4)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Commercial</div><div class="g-title">Mercedes-Benz — Sandton</div></div>
+    </div>
+    <div class="g-item h1 reveal d2" data-cat="solar" onclick="openLB(5)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1592833159155-c62df1b65634?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Solar</div><div class="g-title">Residential Solar Array</div></div>
+    </div>
+    <div class="g-item h3 reveal" data-cat="residential" onclick="openLB(6)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Residential</div><div class="g-title">Lebo — Midrand Waterfall</div></div>
+    </div>
+    <div class="g-item h5 reveal d1" data-cat="commercial" onclick="openLB(7)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Commercial</div><div class="g-title">Media 24 — Sandton</div></div>
+    </div>
+    <div class="g-item h2 reveal d2" data-cat="maintenance" onclick="openLB(8)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1513828583688-c52646db42da?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Maintenance</div><div class="g-title">Tiger Brands — Bryanston</div></div>
+    </div>
+    <div class="g-item h1 reveal" data-cat="solar" onclick="openLB(9)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Solar</div><div class="g-title">LED Lighting Upgrade</div></div>
+    </div>
+    <div class="g-item h3 reveal d1" data-cat="commercial" onclick="openLB(10)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Commercial</div><div class="g-title">PCM — Kempton Park</div></div>
+    </div>
+    <div class="g-item h4 reveal d2" data-cat="residential" onclick="openLB(11)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Residential</div><div class="g-title">Henry — Waterfall Midrand</div></div>
+    </div>
+    <div class="g-item h2 reveal" data-cat="maintenance" onclick="openLB(12)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Maintenance</div><div class="g-title">Blue Print — Booysen Warehouse</div></div>
+    </div>
+    <div class="g-item h1 reveal d1" data-cat="solar" onclick="openLB(13)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Solar</div><div class="g-title">Battery Backup System</div></div>
+    </div>
+    <div class="g-item h3 reveal d2" data-cat="commercial" onclick="openLB(14)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Commercial</div><div class="g-title">Mercedes-Benz — Rosebank</div></div>
+    </div>
+    <div class="g-item h2 reveal" data-cat="residential" onclick="openLB(15)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Residential</div><div class="g-title">Private Residence — Gauteng</div></div>
+    </div>
+    <div class="g-item h4 reveal d1" data-cat="industrial" onclick="openLB(16)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Industrial</div><div class="g-title">Industrial Panel Installation</div></div>
+    </div>
+    <div class="g-item h2 reveal d2" data-cat="maintenance" onclick="openLB(17)">
+      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=700&q=80')"></div>
+      <div class="g-info"><div class="g-cat">Maintenance</div><div class="g-title">Mr Budeli — Winchester Hills</div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lb" onclick="closeLB(event)">
+  <div class="lb-inner">
+    <div class="lb-nav">
+      <button class="lb-arr" onclick="shift(-1)">&#8592;</button>
+      <button class="lb-arr" onclick="shift(1)">&#8594;</button>
+    </div>
+    <div class="lb-img" id="lb-img"></div>
+    <div class="lb-cap">
+      <div>
+        <div class="lb-cat" id="lb-cat"></div>
+        <div class="lb-title" id="lb-title"></div>
+      </div>
+      <button class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">&#215;</button>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const items = [
+  {cat:'Residential',title:'Midrand Waterfall — Garven Residence',img:'https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=1200&q=90'},
+  {cat:'Solar',title:'Off-Grid Solar System',img:'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1200&q=90'},
+  {cat:'Commercial',title:'Ocean Basket — Centurion Mall',img:'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=90'},
+  {cat:'Industrial',title:'Burgersfort Steelpoort Mine',img:'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&q=90'},
+  {cat:'Commercial',title:'Mercedes-Benz — Sandton',img:'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&q=90'},
+  {cat:'Solar',title:'Residential Solar Array',img:'https://images.unsplash.com/photo-1592833159155-c62df1b65634?w=1200&q=90'},
+  {cat:'Residential',title:'Lebo — Midrand Waterfall',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=90'},
+  {cat:'Commercial',title:'Media 24 — Sandton',img:'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1200&q=90'},
+  {cat:'Maintenance',title:'Tiger Brands — Bryanston',img:'https://images.unsplash.com/photo-1513828583688-c52646db42da?w=1200&q=90'},
+  {cat:'Solar',title:'LED Lighting Upgrade',img:'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&q=90'},
+  {cat:'Commercial',title:'PCM — Kempton Park',img:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=90'},
+  {cat:'Residential',title:'Henry — Waterfall Midrand',img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1200&q=90'},
+  {cat:'Maintenance',title:'Blue Print — Booysen Warehouse',img:'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&q=90'},
+  {cat:'Solar',title:'Battery Backup System',img:'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&q=90'},
+  {cat:'Commercial',title:'Mercedes-Benz — Rosebank',img:'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=90'},
+  {cat:'Residential',title:'Private Residence — Gauteng',img:'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=90'},
+  {cat:'Industrial',title:'Industrial Panel Installation',img:'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=90'},
+  {cat:'Maintenance',title:'Mr Budeli — Winchester Hills',img:'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1200&q=90'},
+];
+let cur = 0;
+function openLB(i) {
+  cur = i; render();
+  document.getElementById('lb').classList.add('open');
+}
+function render() {
+  const d = items[cur];
+  document.getElementById('lb-img').style.backgroundImage = `url('${d.img}')`;
+  document.getElementById('lb-cat').textContent = d.cat;
+  document.getElementById('lb-title').textContent = d.title;
+}
+function shift(dir) { cur = (cur + dir + items.length) % items.length; render(); }
+function closeLB(e) { if (e.target.id === 'lb') document.getElementById('lb').classList.remove('open'); }
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lb');
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'ArrowRight') shift(1);
+  if (e.key === 'ArrowLeft') shift(-1);
+  if (e.key === 'Escape') lb.classList.remove('open');
+});
+function filter(cat, btn) {
+  document.querySelectorAll('.g-item').forEach(el => {
+    el.style.display = (cat === 'all' || el.dataset.cat === cat) ? 'block' : 'none';
+  });
+  document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+<script src="nav.js"></script>
+</body>
+</html>

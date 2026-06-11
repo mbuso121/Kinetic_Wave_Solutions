@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Contact — Kinetic Wave Solutions</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+
+/* HERO — green bg like Bluewave's coloured headers */
+.contact-hero {
+  background: var(--green);
+  padding: 8rem 5vw 6rem;
+  position: relative; overflow: hidden;
+}
+.contact-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1400&q=80')
+    center/cover no-repeat;
+  opacity: 0.12;
+}
+.ch-inner { position: relative; z-index: 2; max-width: 640px; }
+.ch-label {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.65); margin-bottom: 1rem; display: block;
+}
+.ch-title {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.5rem,5.5vw,4.5rem);
+  color: var(--white); line-height: 1.05; margin-bottom: 1rem;
+}
+.ch-title em { font-style: italic; }
+.ch-sub {
+  font-size: 1.05rem; color: rgba(255,255,255,0.75);
+  line-height: 1.7; max-width: 480px;
+}
+
+/* MAIN GRID */
+#contact-main {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  background: var(--white);
+}
+
+/* LEFT — details */
+.cd-panel {
+  padding: 6rem 5vw;
+  background: var(--offwhite);
+  border-right: 1px solid var(--border);
+}
+.cd-block {
+  margin-bottom: 3rem; padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+}
+.cd-block:last-child { border-bottom: none; margin-bottom: 0; }
+.cd-lbl {
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 0.8rem;
+}
+.cd-big {
+  font-family: var(--serif); font-size: 1.4rem;
+  color: var(--text); margin-bottom: 0.3rem; line-height: 1.2;
+}
+.cd-line {
+  font-size: 0.88rem; color: var(--muted);
+  margin-bottom: 0.3rem; line-height: 1.6;
+}
+.cd-line a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.cd-line a:hover { color: var(--green); }
+.bank-rows { margin-top: 0.5rem; }
+.bank-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1.5rem; margin-bottom: 0.8rem;
+}
+.bank-lbl {
+  font-family: var(--mono); font-size: 0.54rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(0,0,0,0.3);
+}
+.bank-val { font-size: 0.84rem; color: var(--muted); }
+.reg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 0.5rem; }
+.reg-lbl { font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.3); }
+.reg-val { font-size: 0.82rem; color: var(--muted); }
+
+/* RIGHT — form */
+.cf-panel {
+  padding: 6rem 5vw;
+  background: var(--white);
+}
+.cf-h {
+  font-family: var(--serif); font-size: 2rem;
+  color: var(--text); margin-bottom: 0.5rem; line-height: 1.1;
+}
+.cf-h em { font-style: italic; }
+.cf-sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 2.5rem; line-height: 1.6; }
+
+.f-label {
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.4rem; display: block;
+}
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.f-input, .f-select, .f-textarea {
+  width: 100%;
+  background: var(--offwhite);
+  border: 1px solid var(--border);
+  border-bottom: 2px solid var(--border);
+  color: var(--text);
+  padding: 0.9rem 1.1rem;
+  font-family: var(--sans); font-size: 0.9rem;
+  border-radius: 4px; outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  margin-bottom: 1rem;
+}
+.f-input::placeholder, .f-textarea::placeholder { color: rgba(0,0,0,0.25); }
+.f-input:focus, .f-select:focus, .f-textarea:focus {
+  border-bottom-color: var(--green);
+  background: var(--white);
+}
+.f-select { appearance: none; cursor: pointer; }
+.f-textarea { resize: vertical; min-height: 130px; margin-bottom: 0; }
+#f-success {
+  display: none;
+  background: var(--green); color: var(--white);
+  padding: 1.2rem 1.5rem; border-radius: 4px;
+  font-family: var(--serif); font-style: italic; font-size: 1.1rem;
+  margin-top: 1.5rem;
+}
+
+/* MAP */
+#map-area {
+  height: 260px; position: relative;
+  background: #e8ede4; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 0.8rem;
+}
+.map-lines {
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(125,197,39,0.08) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(125,197,39,0.08) 40px);
+}
+.map-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--green); position: relative; z-index: 2;
+  box-shadow: 0 0 0 8px rgba(125,197,39,0.2);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 8px rgba(125,197,39,0.2); }
+  50%      { box-shadow: 0 0 0 16px rgba(125,197,39,0.08); }
+}
+.map-label {
+  font-family: var(--mono); font-size: 0.65rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--dark); position: relative; z-index: 2; text-align: center;
+}
+.map-label strong { color: var(--green); display: block; margin-bottom: 0.2rem; }
+
+/* WHY US */
+#why-us {
+  padding: 7rem 5vw;
+  background: var(--dark);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+}
+.wu-left .label-tag { color: var(--green); }
+.wu-left .section-h { color: var(--white); margin-bottom: 1.2rem; }
+.wu-left p { font-size: 0.9rem; color: rgba(255,255,255,0.45); line-height: 1.8; }
+.wu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.wu-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-top: 2px solid var(--green);
+  padding: 1.8rem 1.5rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.wu-card:hover { background: rgba(255,255,255,0.07); }
+.wu-card-title {
+  font-family: var(--sans); font-weight: 600;
+  font-size: 0.88rem; color: var(--white); margin-bottom: 0.5rem;
+}
+.wu-card-body { font-size: 0.82rem; color: rgba(255,255,255,0.4); line-height: 1.65; }
+
+@media(max-width:860px) {
+  .contact-hero { padding: 5rem 1.2rem 4rem; }
+  #contact-main { grid-template-columns: 1fr; }
+  .cd-panel { padding: 3rem 1.2rem; border-right: none; border-bottom: 1px solid var(--border); }
+  .cf-panel { padding: 3rem 1.2rem; }
+  .f-row { grid-template-columns: 1fr; }
+  #why-us { grid-template-columns: 1fr; padding: 4rem 1.2rem; gap: 3rem; }
+  .wu-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body data-page="contact" data-solidnav="1">
+<div style="padding-top:72px">
+
+<!-- HERO -->
+<div class="contact-hero">
+  <div class="ch-inner">
+    <span class="ch-label">Reach Out</span>
+    <h1 class="ch-title">Let's build<br/><em>something together</em></h1>
+    <p class="ch-sub">Whether it's a new installation, a maintenance contract, or going solar — we are ready to help. Get in touch and we'll respond within one business day.</p>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="contact-main">
+
+  <!-- DETAILS -->
+  <div class="cd-panel">
+    <div class="cd-block reveal">
+      <div class="cd-lbl">Address</div>
+      <div class="cd-big">3248 Titanium Street</div>
+      <div class="cd-line">Finetown, Gauteng, 1826</div>
+      <div class="cd-line">South Africa</div>
+    </div>
+    <div class="cd-block reveal">
+      <div class="cd-lbl">Phone &amp; Email</div>
+      <div class="cd-big"><a href="tel:0843826567">084 382 6567</a></div>
+      <div class="cd-line"><a href="mailto:info@kineticwavesolutions.co.za">info@kineticwavesolutions.co.za</a></div>
+    </div>
+    <div class="cd-block reveal">
+      <div class="cd-lbl">Banking Details — First National Bank</div>
+      <div class="bank-rows">
+        <div class="bank-row">
+          <div><div class="bank-lbl">Account Name</div><div class="bank-val">K2017/296488/07 (SA) (Pty) Ltd</div></div>
+          <div><div class="bank-lbl">Account Number</div><div class="bank-val">62709684874</div></div>
+        </div>
+        <div class="bank-row">
+          <div><div class="bank-lbl">Branch Code</div><div class="bank-val">254005</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="cd-block reveal">
+      <div class="cd-lbl">Company Registration</div>
+      <div class="reg-grid">
+        <div><div class="reg-lbl">Reg Number</div><div class="reg-val">2017/296488/07</div></div>
+        <div><div class="reg-lbl">Tax Number</div><div class="reg-val">90160599272</div></div>
+        <div><div class="reg-lbl">CSD Supplier</div><div class="reg-val">MAAA0505139</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="cf-panel reveal d1">
+    <h2 class="cf-h">Send us<br/><em>a message</em></h2>
+    <p class="cf-sub">Fill in the form below and we'll get back to you quickly. For urgent queries, call us directly.</p>
+    <div class="f-row">
+      <div>
+        <label class="f-label">Your Name *</label>
+        <input type="text" class="f-input" placeholder="John Smith" id="f-name"/>
+      </div>
+      <div>
+        <label class="f-label">Phone Number *</label>
+        <input type="tel" class="f-input" placeholder="082 000 0000" id="f-phone"/>
+      </div>
+    </div>
+    <label class="f-label">Email Address *</label>
+    <input type="email" class="f-input" placeholder="you@example.com" id="f-email"/>
+    <label class="f-label">Service Interested In</label>
+    <select class="f-select" id="f-svc">
+      <option value="" disabled selected>Select a service&hellip;</option>
+      <option>Electrical Installation</option>
+      <option>Electrical Maintenance</option>
+      <option>Off-Grid Solar Package</option>
+      <option>Generator Installation</option>
+      <option>LED Lighting</option>
+      <option>General Enquiry</option>
+    </select>
+    <label class="f-label" style="margin-top:0.2rem">Project Type</label>
+    <select class="f-select" id="f-type">
+      <option value="" disabled selected>Select type&hellip;</option>
+      <option>Residential / Home</option>
+      <option>Commercial Building</option>
+      <option>Industrial / Mine</option>
+      <option>New Development</option>
+      <option>Other</option>
+    </select>
+    <label class="f-label" style="margin-top:0.2rem">Tell Us About Your Project</label>
+    <textarea class="f-textarea" id="f-msg" placeholder="Describe your project, location, and any specific requirements&hellip;"></textarea>
+    <button
+      class="pill-btn green"
+      style="margin-top:1.5rem;border:none;font-size:0.88rem"
+      onclick="submitForm()"
+    >Send Message &rarr;</button>
+    <div id="f-success">Message sent — we will be in touch within one business day.</div>
+  </div>
+</div>
+
+<!-- MAP -->
+<div id="map-area">
+  <div class="map-lines"></div>
+  <div class="map-dot"></div>
+  <div class="map-label">
+    <strong>Kinetic Wave Solutions</strong>
+    3248 Titanium Street &bull; Finetown &bull; Gauteng &bull; 1826
+  </div>
+</div>
+
+<!-- WHY US -->
+<section id="why-us">
+  <div class="wu-left reveal">
+    <span class="label-tag">Why Choose Us</span>
+    <h2 class="section-h" style="color:var(--white)">Why <em>Kinetic Wave</em><br/>Solutions?</h2>
+    <p style="margin-top:1rem">We are not just contractors — we are partners who care about the outcome. Every job is treated as our own.</p>
+  </div>
+  <div class="wu-grid">
+    <div class="wu-card reveal">
+      <div class="wu-card-title">Accredited Electricians</div>
+      <div class="wu-card-body">All our electricians hold Wireman's Licences. Every job meets the required compliance standards.</div>
+    </div>
+    <div class="wu-card reveal d1">
+      <div class="wu-card-title">Green Technology Focus</div>
+      <div class="wu-card-body">Committed to moving clients toward greener energy — better for your wallet and the planet.</div>
+    </div>
+    <div class="wu-card reveal d2">
+      <div class="wu-card-title">Entrepreneur-Built</div>
+      <div class="wu-card-body">Built by entrepreneurs who care deeply. We treat every project with the same dedication as our own.</div>
+    </div>
+    <div class="wu-card reveal d3">
+      <div class="wu-card-title">Done Right First Time</div>
+      <div class="wu-card-body">Our philosophy: a project done right the first time is a project done right. No shortcuts, ever.</div>
+    </div>
+  </div>
+</section>
+
+</div>
+<script>
+function submitForm() {
+  const n = document.getElementById('f-name').value.trim();
+  const e = document.getElementById('f-email').value.trim();
+  if (!n || !e) { alert('Please fill in your name and email address.'); return; }
+  document.getElementById('f-success').style.display = 'block';
+  document.querySelector('.pill-btn.green').style.display = 'none';
+}
+</script>
+<script src="nav.js"></script>
+</body>
+</html>
