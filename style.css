@@ -1,8 +1,4 @@
-/* ════════════════════════════════════════════════
-   KINETIC WAVE SOLUTIONS — Global Stylesheet
-   Clean / Modern / Professional
-   Brand: Lime Green #7DC527 + White + Dark
-   ════════════════════════════════════════════════ */
+
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
@@ -32,9 +28,7 @@ body {
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-thumb { background: var(--green); }
 
-/* ════════════════════════════════════════════════
-   NAV — fixed, full-width, logo left | links centre | cta right
-   ════════════════════════════════════════════════ */
+
 #nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -166,17 +160,11 @@ body {
 #nav-drawer a:hover { color: var(--green); background: var(--offwhite); }
 #nav-drawer a:last-child { color: var(--green); font-weight: 700; border-bottom: none; }
 
-/* ════════════════════════════════════════════════
-   PAGE WRAPPERS
-   ════════════════════════════════════════════════ */
-/* Inner pages: push content below fixed nav */
+/*page wrapper*/
 .page-wrap { padding-top: var(--nav-h); }
-/* Home page: hero is full-bleed behind transparent nav */
 .page-wrap--hero { padding-top: 0; }
 
-/* ════════════════════════════════════════════════
-   FOOTER
-   ════════════════════════════════════════════════ */
+/* footer*/
 footer {
   background: var(--dark);
   padding: 5rem 5vw 0;
@@ -229,9 +217,7 @@ footer {
 }
 .footer-nav-bar a:hover { color: var(--green); }
 
-/* ════════════════════════════════════════════════
-   SHARED COMPONENTS
-   ════════════════════════════════════════════════ */
+
 .pill-btn {
   display: inline-flex; align-items: center; justify-content: center;
   font-family: var(--sans); font-weight: 500; font-size: 0.92rem;
@@ -269,9 +255,7 @@ footer {
 .reveal.d3 { transition-delay: 0.3s; }
 .reveal.d4 { transition-delay: 0.4s; }
 
-/* ════════════════════════════════════════════════
-   RESPONSIVE
-   ════════════════════════════════════════════════ */
+
 @media (max-width: 860px) {
   #nav {
     grid-template-columns: 1fr auto auto;
