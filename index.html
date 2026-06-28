@@ -19,7 +19,7 @@
 .hero-bg {
   position: absolute; inset: 0;
   background:
-    url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1800&q=90')
+    url('gallery7.jpeg')
     center 60% / cover no-repeat;
 }
 .hero-bg::after {
@@ -106,8 +106,8 @@
 }
 .intro-img {
   background:
-    url('https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=900&q=80')
-    center / cover no-repeat;
+    url('intro.jpeg')
+    center / cover no-repeat; /* ✏️ EDIT IMAGE: INDEX — Intro split left image */
   min-height: 400px;
 }
 .intro-body {
@@ -204,8 +204,8 @@
 }
 .plug-img {
   background:
-    url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=900&q=80')
-    center / cover no-repeat;
+    url('gallery6.jpeg')
+    center / cover no-repeat; /* ✏️ EDIT IMAGE: INDEX — Plug section left image */
   min-height: 380px;
   position: relative;
 }
@@ -268,7 +268,7 @@
 #cta-band {
   background:
     linear-gradient(rgba(10,30,5,0.75), rgba(10,30,5,0.75)),
-    url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1600&q=80')
+    url('gallery3.jpeg') /* ✏️ EDIT IMAGE: INDEX — CTA band background image */
     center / cover no-repeat;
   padding: 8rem 5vw;
   text-align: center;
@@ -305,7 +305,7 @@
 </style>
 </head>
 <body data-page="index">
-<div style="padding-top:72px">
+<div class="page-wrap page-wrap--hero">
 
 <!-- HERO -->
 <section id="hero">
@@ -419,19 +419,19 @@
   </div>
   <div class="rw-grid">
     <div class="rw-tile reveal" onclick="location.href='gallery.html'">
-      <div class="rw-tile-bg" style="background-image:url('https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=600&q=80')"></div>
+      <div class="rw-tile-bg" style="background-image:url('gallery4.jpeg')" data-edit="INDEX — Recent work tile 1 (Residential)"></div>
       <div class="rw-tile-info"><div class="rw-tile-tag">Residential</div><div class="rw-tile-name">Midrand Waterfall</div></div>
     </div>
     <div class="rw-tile reveal d1" onclick="location.href='gallery.html'">
-      <div class="rw-tile-bg" style="background-image:url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&q=80')"></div>
+      <div class="rw-tile-bg" style="background-image:url('gallery.jpeg')" data-edit="INDEX — Recent work tile 2 (Solar)"></div>
       <div class="rw-tile-info"><div class="rw-tile-tag">Solar</div><div class="rw-tile-name">Off-Grid System</div></div>
     </div>
     <div class="rw-tile reveal d2" onclick="location.href='gallery.html'">
-      <div class="rw-tile-bg" style="background-image:url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80')"></div>
+      <div class="rw-tile-bg" style="background-image:url('gallery5.jpeg')" data-edit="INDEX — Recent work tile 3 (Commercial)"></div>
       <div class="rw-tile-info"><div class="rw-tile-tag">Commercial</div><div class="rw-tile-name">Centurion Mall</div></div>
     </div>
     <div class="rw-tile reveal d3" onclick="location.href='gallery.html'">
-      <div class="rw-tile-bg" style="background-image:url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80')"></div>
+      <div class="rw-tile-bg" style="background-image:url('gallery7.jpeg')" data-edit="INDEX — Recent work tile 4 (Industrial)"></div>
       <div class="rw-tile-info"><div class="rw-tile-tag">Industrial</div><div class="rw-tile-name">Steelpoort Mine</div></div>
     </div>
   </div>

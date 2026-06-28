@@ -17,8 +17,8 @@
   content: '';
   position: absolute; inset: 0;
   background:
-    url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1400&q=80')
-    center/cover no-repeat;
+    url('gallery7.jpeg')
+    center/cover no-repeat; /* ✏️ EDIT IMAGE: CONTACT — Hero overlay background */
   opacity: 0.12;
 }
 .ch-inner { position: relative; z-index: 2; max-width: 640px; }
@@ -194,10 +194,20 @@
   #why-us { grid-template-columns: 1fr; padding: 4rem 1.2rem; gap: 3rem; }
   .wu-grid { grid-template-columns: 1fr; }
 }
+
+@media(max-width:860px){
+  .contact-hero{padding:5rem 1.2rem 4rem}
+  #contact-main{grid-template-columns:1fr}
+  .cd-panel{padding:3rem 1.2rem;border-right:none;border-bottom:1px solid var(--border)}
+  .cf-panel{padding:3rem 1.2rem}
+  .f-row{grid-template-columns:1fr}
+  #why-us{grid-template-columns:1fr;padding:4rem 1.2rem;gap:3rem}
+  .wu-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body data-page="contact" data-solidnav="1">
-<div style="padding-top:72px">
+<div class="page-wrap">
 
 <!-- HERO -->
 <div class="contact-hero">

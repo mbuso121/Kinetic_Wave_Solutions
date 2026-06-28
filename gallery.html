@@ -6,6 +6,8 @@
 <title>Gallery — Kinetic Wave Solutions</title>
 <link rel="stylesheet" href="style.css"/>
 <style>
+
+/* PAGE HERO */
 .page-hero {
   height: 55vh; min-height: 380px;
   position: relative; display: flex; align-items: flex-end;
@@ -13,98 +15,201 @@
 }
 .ph-bg {
   position: absolute; inset: 0;
-  background: url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1600&q=85') center/cover no-repeat;
+  background: url('gallery7.jpeg') center/cover no-repeat;
+  /* ✏️ EDIT IMAGE: GALLERY — Page hero background */
 }
 .ph-bg::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(10,20,5,0.72) 0%, rgba(10,20,5,0.2) 60%);
 }
 .ph-content { position: relative; z-index: 2; }
-.ph-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 1rem; display: block; }
-.ph-title { font-family: var(--serif); font-weight: 400; font-size: clamp(2.5rem,6vw,5rem); color: var(--white); line-height: 1.05; }
+.ph-label {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 1rem; display: block;
+}
+.ph-title {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.5rem,6vw,5rem);
+  color: var(--white); line-height: 1.05;
+}
 .ph-title em { font-style: italic; }
 
-/* CATEGORY TABS */
-#category-bar {
+/* CATEGORY INTRO CARDS */
+#cat-intro {
+  background: var(--dark);
+  padding: 4rem 5vw;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background-color: rgba(255,255,255,0.06);
+}
+.ci-card {
+  background: var(--dark);
+  padding: 2rem 1.5rem;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: background 0.25s, border-color 0.25s;
+  text-align: center;
+}
+.ci-card:hover { background: rgba(255,255,255,0.04); }
+.ci-card.active { border-bottom-color: var(--green); background: rgba(125,197,39,0.06); }
+.ci-icon {
+  width: 44px; height: 44px;
+  background: rgba(125,197,39,0.1);
+  border: 1px solid rgba(125,197,39,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+  transition: background 0.25s, border-color 0.25s;
+}
+.ci-card.active .ci-icon,
+.ci-card:hover .ci-icon {
+  background: rgba(125,197,39,0.18);
+  border-color: rgba(125,197,39,0.45);
+}
+.ci-icon svg { width: 20px; height: 20px; fill: none; stroke: var(--green); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ci-name {
+  font-family: var(--sans); font-weight: 600;
+  font-size: 0.82rem; color: var(--white);
+  margin-bottom: 0.3rem;
+}
+.ci-count {
+  font-family: var(--mono); font-size: 0.55rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+/* FILTER TAB BAR */
+#filter-bar {
   background: var(--white);
   border-bottom: 1px solid var(--border);
   padding: 0 5vw;
-  display: flex; gap: 0; overflow-x: auto;
-  position: sticky; top: 72px; z-index: 80;
+  display: flex; gap: 0;
+  overflow-x: auto;
+  position: sticky; top: 80px; z-index: 80;
+  scrollbar-width: none;
 }
-.cat-tab {
-  font-family: var(--mono); font-size: 0.62rem;
+#filter-bar::-webkit-scrollbar { display: none; }
+.f-tab {
+  font-family: var(--mono); font-size: 0.58rem;
   letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--muted); background: none; border: none;
-  padding: 1.2rem 1.6rem;
+  padding: 1.1rem 1.4rem;
   border-bottom: 2px solid transparent;
   cursor: pointer; white-space: nowrap;
   transition: color 0.2s, border-color 0.2s;
 }
-.cat-tab:hover { color: var(--green); }
-.cat-tab.active { color: var(--green); border-bottom-color: var(--green); }
+.f-tab:hover { color: var(--green); }
+.f-tab.active { color: var(--green); border-bottom-color: var(--green); }
+
+/* COMING SOON NOTICE */
+.coming-soon-bar {
+  background: rgba(125,197,39,0.08);
+  border-left: 3px solid var(--green);
+  padding: 1rem 5vw;
+  display: none;
+  align-items: center;
+  gap: 1rem;
+}
+.coming-soon-bar.show { display: flex; }
+.csb-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green); flex-shrink: 0;
+  animation: blink 1.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.csb-text {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--green);
+}
 
 /* MASONRY GALLERY */
 #gallery-wrap {
   padding: 4rem 5vw;
   background: var(--offwhite);
+  min-height: 400px;
 }
-.masonry {
-  columns: 3; column-gap: 1rem;
-}
+.masonry { columns: 3; column-gap: 1rem; }
 .g-item {
   break-inside: avoid; margin-bottom: 1rem;
   position: relative; overflow: hidden;
   border-radius: 4px; cursor: pointer;
-  background: var(--dark);
-  display: block;
+  background: var(--dark); display: block;
 }
 .g-bg {
   width: 100%; display: block;
   background-size: cover; background-position: center;
-  filter: brightness(0.75) saturate(0.65);
+  filter: brightness(0.75) saturate(0.6);
   transition: filter 0.5s, transform 0.5s;
 }
-.g-item.h1 .g-bg { height: 240px; }
-.g-item.h2 .g-bg { height: 320px; }
-.g-item.h3 .g-bg { height: 200px; }
-.g-item.h4 .g-bg { height: 390px; }
-.g-item.h5 .g-bg { height: 280px; }
-.g-item:hover .g-bg { filter: brightness(0.92) saturate(0.85); transform: scale(1.03); }
+.g-item.h1 .g-bg { height: 220px; }
+.g-item.h2 .g-bg { height: 300px; }
+.g-item.h3 .g-bg { height: 185px; }
+.g-item.h4 .g-bg { height: 370px; }
+.g-item.h5 .g-bg { height: 260px; }
+.g-item:hover .g-bg { filter: brightness(0.9) saturate(0.85); transform: scale(1.04); }
 .g-info {
   position: absolute; bottom: 0; left: 0; right: 0;
   padding: 1.5rem 1.2rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 100%);
   transform: translateY(100%);
   transition: transform 0.38s cubic-bezier(.22,1,.36,1);
 }
 .g-item:hover .g-info { transform: translateY(0); }
 .g-cat {
-  font-family: var(--mono); font-size: 0.54rem;
+  font-family: var(--mono); font-size: 0.52rem;
   letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--green); margin-bottom: 0.3rem;
+  color: var(--green); margin-bottom: 0.35rem;
 }
-.g-title { font-family: var(--sans); font-weight: 500; font-size: 0.9rem; color: var(--white); }
+.g-title { font-family: var(--sans); font-weight: 500; font-size: 0.88rem; color: var(--white); line-height: 1.3; }
+
+/* EMPTY STATE */
+#empty-state {
+  display: none;
+  text-align: center;
+  padding: 6rem 2rem;
+}
+#empty-state.show { display: block; }
+.es-title {
+  font-family: var(--serif); font-size: 1.6rem;
+  color: var(--muted); margin-bottom: 0.8rem;
+}
+.es-sub {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(0,0,0,0.25);
+}
 
 /* LIGHTBOX */
 #lb {
   position: fixed; inset: 0; z-index: 9999;
-  background: rgba(5,10,3,0.96);
+  background: rgba(5,10,3,0.97);
   display: none; align-items: center; justify-content: center;
 }
 #lb.open { display: flex; }
 .lb-inner { max-width: 920px; width: 92%; position: relative; cursor: default; }
-.lb-img { width: 100%; height: 540px; background-size: cover; background-position: center; border-radius: 2px; }
+.lb-img {
+  width: 100%; height: 520px;
+  background-size: cover; background-position: center;
+  border-radius: 3px;
+}
 .lb-cap {
   padding: 1.2rem 0 0;
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex; justify-content: space-between; align-items: flex-start;
 }
-.lb-cat { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 0.2rem; }
+.lb-cat {
+  font-family: var(--mono); font-size: 0.56rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 0.25rem;
+}
 .lb-title { font-family: var(--serif); font-size: 1.3rem; color: var(--white); }
 .lb-close {
   width: 40px; height: 40px; background: var(--green);
-  border: none; cursor: pointer; color: var(--dark); font-size: 1.1rem;
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  border: none; cursor: pointer; color: var(--dark);
+  font-size: 1.1rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; transition: background 0.2s;
 }
 .lb-close:hover { background: var(--green2); }
@@ -116,23 +221,34 @@
 }
 .lb-arr {
   width: 44px; height: 44px;
-  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
-  color: var(--white); font-size: 1rem;
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  cursor: pointer; pointer-events: all; transition: background 0.2s;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--white); font-size: 1rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; pointer-events: all; transition: background 0.2s, border-color 0.2s;
 }
-.lb-arr:hover { background: var(--green); border-color: var(--green); }
+.lb-arr:hover { background: var(--green); border-color: var(--green); color: var(--dark); }
 
-@media(max-width:860px) {
-  .masonry { columns: 2; }
-  #gallery-wrap { padding: 2rem 1.2rem; }
+@media(max-width:860px){
+  .page-hero{height:45vh;min-height:300px;padding:0 1.2rem 3rem}
+  #cat-intro{grid-template-columns:1fr 1fr;padding:3rem 1.2rem}
+  .masonry{columns:2}
+  #gallery-wrap{padding:2rem 1.2rem}
+  .lb-nav{width:100%;left:0}
+  .lb-inner{width:96%}
+  .lb-img{height:300px}
 }
-@media(max-width:500px) { .masonry { columns: 1; } }
+@media(max-width:480px){
+  #cat-intro{grid-template-columns:1fr 1fr}
+  .masonry{columns:1}
+  .ci-card{padding:1.5rem 1rem}
+}
 </style>
 </head>
 <body data-page="gallery" data-solidnav="1">
-<div style="padding-top:72px">
+<div class="page-wrap">
 
+<!-- HERO -->
 <div class="page-hero">
   <div class="ph-bg"></div>
   <div class="ph-content">
@@ -141,95 +257,213 @@
   </div>
 </div>
 
-<!-- CATEGORY TABS -->
-<div id="category-bar">
-  <button class="cat-tab active" onclick="filter('all',this)">All Projects</button>
-  <button class="cat-tab" onclick="filter('residential',this)">Residential</button>
-  <button class="cat-tab" onclick="filter('commercial',this)">Commercial</button>
-  <button class="cat-tab" onclick="filter('industrial',this)">Industrial</button>
-  <button class="cat-tab" onclick="filter('solar',this)">Solar &amp; Green</button>
-  <button class="cat-tab" onclick="filter('maintenance',this)">Maintenance</button>
+<!-- CATEGORY INTRO CARDS -->
+<div id="cat-intro">
+
+  <div class="ci-card active" onclick="setFilter('all', this)">
+    <div class="ci-icon">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    </div>
+    <div class="ci-name">All Work</div>
+    <div class="ci-count">All categories</div>
+  </div>
+
+  <div class="ci-card" onclick="setFilter('solar-ground', this)">
+    <div class="ci-icon">
+      <svg viewBox="0 0 24 24"><path d="M3 20h18M5 20V10l7-7 7 7v10"/><rect x="9" y="14" width="6" height="6"/></svg>
+    </div>
+    <div class="ci-name">Ground Mount</div>
+    <div class="ci-count">Solar on ground frames</div>
+  </div>
+
+  <div class="ci-card" onclick="setFilter('solar-roof', this)">
+    <div class="ci-icon">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </div>
+    <div class="ci-name">Roof &amp; Slab Mount</div>
+    <div class="ci-count">Tile &amp; slab rooftops</div>
+  </div>
+
+  <div class="ci-card" onclick="setFilter('construction', this)">
+    <div class="ci-icon">
+      <svg viewBox="0 0 24 24"><path d="M2 20h20M4 20V10M20 20V10M12 4v16M8 8H4M16 8h4M8 12H4M16 12h4"/></svg>
+    </div>
+    <div class="ci-name">Construction</div>
+    <div class="ci-count">Conduit, foundations &amp; DB boards</div>
+  </div>
+
+  <div class="ci-card" onclick="setFilter('carport', this)">
+    <div class="ci-icon">
+      <svg viewBox="0 0 24 24"><path d="M3 17h18M5 17V9l7-5 7 5v8"/><line x1="12" y1="4" x2="12" y2="17"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+    </div>
+    <div class="ci-name">Carport Solar</div>
+    <div class="ci-count">Coming soon</div>
+  </div>
+
 </div>
 
-<!-- GALLERY -->
+<!-- FILTER TAB BAR -->
+<div id="filter-bar">
+  <button class="f-tab active" onclick="filterTab('all', this)">All Projects</button>
+  <button class="f-tab" onclick="filterTab('solar-ground', this)">Ground Mount Solar</button>
+  <button class="f-tab" onclick="filterTab('solar-roof', this)">Roof &amp; Slab Solar</button>
+  <button class="f-tab" onclick="filterTab('construction', this)">Construction &amp; Conduit</button>
+  <button class="f-tab" onclick="filterTab('construction', this)">DB Boards</button>
+  <button class="f-tab" onclick="filterTab('carport', this)">Carport Solar</button>
+</div>
+
+<!-- COMING SOON BAR (shown when carport is selected) -->
+<div class="coming-soon-bar" id="coming-soon-bar">
+  <div class="csb-dot"></div>
+  <span class="csb-text">Carport solar photos coming soon &mdash; installations in progress</span>
+</div>
+
+<!-- GALLERY GRID -->
 <div id="gallery-wrap">
   <div class="masonry" id="grid">
 
-    <div class="g-item h2 reveal" data-cat="residential" onclick="openLB(0)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Residential</div><div class="g-title">Midrand Waterfall — Garven Residence</div></div>
-    </div>
-    <div class="g-item h1 reveal d1" data-cat="solar" onclick="openLB(1)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Solar</div><div class="g-title">Off-Grid Solar System</div></div>
-    </div>
-    <div class="g-item h3 reveal d2" data-cat="commercial" onclick="openLB(2)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Commercial</div><div class="g-title">Ocean Basket — Centurion Mall</div></div>
-    </div>
-    <div class="g-item h4 reveal" data-cat="industrial" onclick="openLB(3)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Industrial</div><div class="g-title">Burgersfort Steelpoort Mine</div></div>
-    </div>
-    <div class="g-item h2 reveal d1" data-cat="commercial" onclick="openLB(4)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Commercial</div><div class="g-title">Mercedes-Benz — Sandton</div></div>
-    </div>
-    <div class="g-item h1 reveal d2" data-cat="solar" onclick="openLB(5)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1592833159155-c62df1b65634?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Solar</div><div class="g-title">Residential Solar Array</div></div>
-    </div>
-    <div class="g-item h3 reveal" data-cat="residential" onclick="openLB(6)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Residential</div><div class="g-title">Lebo — Midrand Waterfall</div></div>
-    </div>
-    <div class="g-item h5 reveal d1" data-cat="commercial" onclick="openLB(7)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Commercial</div><div class="g-title">Media 24 — Sandton</div></div>
-    </div>
-    <div class="g-item h2 reveal d2" data-cat="maintenance" onclick="openLB(8)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1513828583688-c52646db42da?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Maintenance</div><div class="g-title">Tiger Brands — Bryanston</div></div>
-    </div>
-    <div class="g-item h1 reveal" data-cat="solar" onclick="openLB(9)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Solar</div><div class="g-title">LED Lighting Upgrade</div></div>
-    </div>
-    <div class="g-item h3 reveal d1" data-cat="commercial" onclick="openLB(10)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Commercial</div><div class="g-title">PCM — Kempton Park</div></div>
-    </div>
-    <div class="g-item h4 reveal d2" data-cat="residential" onclick="openLB(11)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Residential</div><div class="g-title">Henry — Waterfall Midrand</div></div>
-    </div>
-    <div class="g-item h2 reveal" data-cat="maintenance" onclick="openLB(12)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Maintenance</div><div class="g-title">Blue Print — Booysen Warehouse</div></div>
-    </div>
-    <div class="g-item h1 reveal d1" data-cat="solar" onclick="openLB(13)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Solar</div><div class="g-title">Battery Backup System</div></div>
-    </div>
-    <div class="g-item h3 reveal d2" data-cat="commercial" onclick="openLB(14)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Commercial</div><div class="g-title">Mercedes-Benz — Rosebank</div></div>
-    </div>
-    <div class="g-item h2 reveal" data-cat="residential" onclick="openLB(15)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Residential</div><div class="g-title">Private Residence — Gauteng</div></div>
-    </div>
-    <div class="g-item h4 reveal d1" data-cat="industrial" onclick="openLB(16)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Industrial</div><div class="g-title">Industrial Panel Installation</div></div>
-    </div>
-    <div class="g-item h2 reveal d2" data-cat="maintenance" onclick="openLB(17)">
-      <div class="g-bg" style="background-image:url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=700&q=80')"></div>
-      <div class="g-info"><div class="g-cat">Maintenance</div><div class="g-title">Mr Budeli — Winchester Hills</div></div>
+    <!-- GROUND MOUNT SOLAR -->
+    <div class="g-item h2 reveal" data-cat="solar-ground" onclick="openLB(0)">
+      <div class="g-bg" style="background-image:url('gallery.jpeg')">
+        <!-- ✏️ EDIT IMAGE: Ground Mount Solar — Item 01 thumbnail (replace with your own photo) -->
+      </div>
+      <div class="g-info">
+        <div class="g-cat">Ground Mount Solar</div>
+        <div class="g-title">Ground Mount Array<br/>Replace with your photo</div>
+      </div>
     </div>
 
+    <div class="g-item h4 reveal d1" data-cat="solar-ground" onclick="openLB(1)">
+      <div class="g-bg" style="background-image:url('gallery3.jpeg')">
+        <!-- ✏️ EDIT IMAGE: Ground Mount Solar — Item 02 thumbnail -->
+      </div>
+      <div class="g-info">
+        <div class="g-cat">Ground Mount Solar</div>
+        <div class="g-title">Ground Frame Installation<br/>Replace with your photo</div>
+      </div>
+    </div>
+
+    <div class="g-item h2 reveal d2" data-cat="solar-ground" onclick="openLB(2)">
+      <div class="g-bg" style="background-image:url('gallery4.jpeg')">
+        <!-- ✏️ EDIT IMAGE: Ground Mount Solar — Item 03 thumbnail -->
+      </div>
+      <div class="g-info">
+        <div class="g-cat">Ground Mount Solar</div>
+        <div class="g-title">Panel Array — Ground Level<br/>Replace with your photo</div>
+      </div>
+    </div>
+
+    <!-- ROOF / SLAB MOUNT SOLAR -->
+    <div class="g-item h3 reveal" data-cat="solar-roof" onclick="openLB(3)">
+      <div class="g-bg" style="background-image:url('gallery5.jpeg')">
+        <!-- ✏️ EDIT IMAGE: Roof & Slab Solar — Item 01 thumbnail -->
+      </div>
+      <div class="g-info">
+        <div class="g-cat">Slab Roof Mount</div>
+        <div class="g-title">Slab Roof Array<br/>Replace with your photo</div>
+      </div>
+    </div>
+
+    <div class="g-item h5 reveal d1" data-cat="solar-roof" onclick="openLB(4)">
+      <div class="g-bg" style="background-image:url('gallery6.jpeg')">
+        <!-- ✏️ EDIT IMAGE: Roof & Slab Solar — Item 02 thumbnail -->
+      </div>
+      <div class="g-info">
+        <div class="g-cat">Tile Roof Mount</div>
+        <div class="g-title">Tile Roof Installation<br/>Replace with your photo</div>
+      </div>
+    </div>
+
+    <div class="g-item h2 reveal d2" data-cat="solar-roof" onclick="openLB(5)">
+      <div class="g-bg" style="background-image:url('gallery7.jpeg')">
+        <!-- ✏️ EDIT IMAGE: Roof & Slab Solar — Item 03 thumbnail -->
+      </div>
+      <div class="g-info">
+        <div class="g-cat">Slab Roof Mount</div>
+        <div class="g-title">Residential Slab Mount<br/>Replace with your photo</div>
+      </div>
+    </div>
+
+    <div class="g-item h1 reveal" data-cat="solar-roof" onclick="openLB(6)">
+      <div class="g-bg" style="background-image:url('gallery2.jpeg')">
+        <!-- ✏️ EDIT IMAGE: Roof & Slab Solar — Item 04 thumbnail -->
+      </div>
+      <div class="g-info">
+        <div class="g-cat">Tile Roof Mount</div>
+        <div class="g-title">Commercial Roof System<br/>Replace with your photo</div>
+      </div>
+    </div>
+
+    <!-- CONSTRUCTION / CONDUIT / DB BOARDS -->
+    <div class="g-item h4 reveal d1" data-cat="construction" onclick="openLB(7)">
+      <div class="g-bg" style="background-image:url('intro.jpeg')">
+        <!-- ✏️ EDIT IMAGE: Construction — Item 01 thumbnail -->
+      </div>
+      <div class="g-info">
+        <div class="g-cat">Construction &amp; Conduit</div>
+        <div class="g-title">Foundation Conduit Laid<br/>Replace with your photo</div>
+      </div>
+    </div>
+
+    <div class="g-item h2 reveal d2" data-cat="construction" onclick="openLB(8)">
+      <div class="g-bg" style="background-image:url('gallery2.jpeg')">
+        <!-- ✏️ EDIT IMAGE: Construction — Item 02 thumbnail -->
+      </div>
+      <div class="g-info">
+        <div class="g-cat">Construction &amp; Conduit</div>
+        <div class="g-title">Electrical Construction Site<br/>Replace with your photo</div>
+      </div>
+    </div>
+
+    <div class="g-item h3 reveal" data-cat="construction" onclick="openLB(9)">
+      <div class="g-bg" style="background-image:url('gallery5.jpeg')">
+        <!-- ✏️ EDIT IMAGE: Construction — Item 03 DB Board thumbnail -->
+      </div>
+      <div class="g-info">
+        <div class="g-cat">DB Boards</div>
+        <div class="g-title">Distribution Board Install<br/>Replace with your photo</div>
+      </div>
+    </div>
+
+    <div class="g-item h5 reveal d1" data-cat="construction" onclick="openLB(10)">
+      <div class="g-bg" style="background-image:url('gallery6.jpeg')">
+        <!-- ✏️ EDIT IMAGE: Construction — Item 04 DB Board thumbnail -->
+      </div>
+      <div class="g-info">
+        <div class="g-cat">DB Boards</div>
+        <div class="g-title">DB Board Wiring<br/>Replace with your photo</div>
+      </div>
+    </div>
+
+    <div class="g-item h2 reveal d2" data-cat="construction" onclick="openLB(11)">
+      <div class="g-bg" style="background-image:url('gallery3.jpeg')">
+        <!-- ✏️ EDIT IMAGE: Construction — Item 05 thumbnail -->
+      </div>
+      <div class="g-info">
+        <div class="g-cat">Construction &amp; Conduit</div>
+        <div class="g-title">Ground Up Build — Conduit<br/>Replace with your photo</div>
+      </div>
+    </div>
+
+    <div class="g-item h1 reveal" data-cat="construction" onclick="openLB(12)">
+      <div class="g-bg" style="background-image:url('gallery4.jpeg')">
+        <!-- ✏️ EDIT IMAGE: Construction — Item 06 thumbnail -->
+      </div>
+      <div class="g-info">
+        <div class="g-cat">DB Boards</div>
+        <div class="g-title">Residential DB Board<br/>Replace with your photo</div>
+      </div>
+    </div>
+
+  </div><!-- /masonry -->
+
+  <!-- Empty state for carport -->
+  <div id="empty-state">
+    <div class="es-title"><em>Coming Soon</em></div>
+    <div class="es-sub">Carport solar photos will appear here once available</div>
   </div>
-</div>
+
+</div><!-- /gallery-wrap -->
 
 <!-- LIGHTBOX -->
 <div id="lb" onclick="closeLB(event)">
@@ -249,55 +483,109 @@
   </div>
 </div>
 
-</div>
+</div><!-- /page-wrap -->
 
 <script>
-const items = [
-  {cat:'Residential',title:'Midrand Waterfall — Garven Residence',img:'https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=1200&q=90'},
-  {cat:'Solar',title:'Off-Grid Solar System',img:'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1200&q=90'},
-  {cat:'Commercial',title:'Ocean Basket — Centurion Mall',img:'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=90'},
-  {cat:'Industrial',title:'Burgersfort Steelpoort Mine',img:'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&q=90'},
-  {cat:'Commercial',title:'Mercedes-Benz — Sandton',img:'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&q=90'},
-  {cat:'Solar',title:'Residential Solar Array',img:'https://images.unsplash.com/photo-1592833159155-c62df1b65634?w=1200&q=90'},
-  {cat:'Residential',title:'Lebo — Midrand Waterfall',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=90'},
-  {cat:'Commercial',title:'Media 24 — Sandton',img:'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1200&q=90'},
-  {cat:'Maintenance',title:'Tiger Brands — Bryanston',img:'https://images.unsplash.com/photo-1513828583688-c52646db42da?w=1200&q=90'},
-  {cat:'Solar',title:'LED Lighting Upgrade',img:'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&q=90'},
-  {cat:'Commercial',title:'PCM — Kempton Park',img:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=90'},
-  {cat:'Residential',title:'Henry — Waterfall Midrand',img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1200&q=90'},
-  {cat:'Maintenance',title:'Blue Print — Booysen Warehouse',img:'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&q=90'},
-  {cat:'Solar',title:'Battery Backup System',img:'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&q=90'},
-  {cat:'Commercial',title:'Mercedes-Benz — Rosebank',img:'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=90'},
-  {cat:'Residential',title:'Private Residence — Gauteng',img:'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=90'},
-  {cat:'Industrial',title:'Industrial Panel Installation',img:'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=90'},
-  {cat:'Maintenance',title:'Mr Budeli — Winchester Hills',img:'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1200&q=90'},
+/* ── GALLERY DATA
+   Replace each img URL with your own photo path once you have real photos.
+   Keep the same structure — just swap the URL.
+   ──────────────────────────────────────────────── */
+var items = [
+  /* GROUND MOUNT SOLAR */
+  { cat:'Ground Mount Solar',  title:'Ground Mount Array',              img:'gallery.jpeg' },
+  /* ✏️ EDIT: replace URL above with your ground mount photo */
+  { cat:'Ground Mount Solar',  title:'Ground Frame Installation',       img:'gallery3.jpeg' },
+  { cat:'Ground Mount Solar',  title:'Panel Array — Ground Level',      img:'gallery4.jpeg' },
+
+  /* ROOF / SLAB MOUNT SOLAR */
+  { cat:'Slab Roof Mount',     title:'Slab Roof Array',                 img:'gallery5.jpeg' },
+  /* ✏️ EDIT: replace URL above with your slab/tile roof photo */
+  { cat:'Tile Roof Mount',     title:'Tile Roof Installation',          img:'gallery6.jpeg' },
+  { cat:'Slab Roof Mount',     title:'Residential Slab Mount',         img:'gallery7.jpeg' },
+  { cat:'Tile Roof Mount',     title:'Commercial Roof System',          img:'gallery2.jpeg' },
+
+  /* CONSTRUCTION / CONDUIT / DB BOARDS */
+  { cat:'Construction & Conduit', title:'Foundation Conduit Laid',      img:'intro.jpeg' },
+  /* ✏️ EDIT: replace URL above with your conduit/foundation photo */
+  { cat:'Construction & Conduit', title:'Electrical Construction Site', img:'gallery2.jpeg' },
+  { cat:'DB Boards',           title:'Distribution Board Install',      img:'gallery5.jpeg' },
+  /* ✏️ EDIT: replace URL above with your DB board photo */
+  { cat:'DB Boards',           title:'DB Board Wiring',                 img:'gallery6.jpeg' },
+  { cat:'Construction & Conduit', title:'Ground Up Build — Conduit',    img:'gallery3.jpeg' },
+  { cat:'DB Boards',           title:'Residential DB Board',            img:'gallery4.jpeg' },
 ];
-let cur = 0;
+
+var cur = 0;
+
 function openLB(i) {
-  cur = i; render();
+  cur = i;
+  render();
   document.getElementById('lb').classList.add('open');
 }
 function render() {
-  const d = items[cur];
-  document.getElementById('lb-img').style.backgroundImage = `url('${d.img}')`;
+  var d = items[cur];
+  document.getElementById('lb-img').style.backgroundImage = "url('" + d.img + "')";
   document.getElementById('lb-cat').textContent = d.cat;
   document.getElementById('lb-title').textContent = d.title;
 }
-function shift(dir) { cur = (cur + dir + items.length) % items.length; render(); }
-function closeLB(e) { if (e.target.id === 'lb') document.getElementById('lb').classList.remove('open'); }
-document.addEventListener('keydown', e => {
-  const lb = document.getElementById('lb');
+function shift(dir) {
+  cur = (cur + dir + items.length) % items.length;
+  render();
+}
+function closeLB(e) {
+  if (e.target.id === 'lb') document.getElementById('lb').classList.remove('open');
+}
+document.addEventListener('keydown', function(e) {
+  var lb = document.getElementById('lb');
   if (!lb.classList.contains('open')) return;
   if (e.key === 'ArrowRight') shift(1);
-  if (e.key === 'ArrowLeft') shift(-1);
-  if (e.key === 'Escape') lb.classList.remove('open');
+  if (e.key === 'ArrowLeft')  shift(-1);
+  if (e.key === 'Escape')     lb.classList.remove('open');
 });
-function filter(cat, btn) {
-  document.querySelectorAll('.g-item').forEach(el => {
+
+/* ── FILTER LOGIC ── */
+function filterGrid(cat) {
+  var items = document.querySelectorAll('.g-item');
+  var empty = document.getElementById('empty-state');
+  var csb   = document.getElementById('coming-soon-bar');
+
+  if (cat === 'carport') {
+    items.forEach(function(el) { el.style.display = 'none'; });
+    empty.classList.add('show');
+    csb.classList.add('show');
+    return;
+  }
+
+  empty.classList.remove('show');
+  csb.classList.remove('show');
+
+  items.forEach(function(el) {
     el.style.display = (cat === 'all' || el.dataset.cat === cat) ? 'block' : 'none';
   });
-  document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+}
+
+function filterTab(cat, btn) {
+  filterGrid(cat);
+  document.querySelectorAll('.f-tab').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+}
+
+function setFilter(cat, card) {
+  filterGrid(cat);
+  /* sync category cards */
+  document.querySelectorAll('.ci-card').forEach(function(c) { c.classList.remove('active'); });
+  if (card) card.classList.add('active');
+  /* sync tab bar */
+  var map = {
+    'all':          0,
+    'solar-ground': 1,
+    'solar-roof':   2,
+    'construction': 3,
+    'carport':      5
+  };
+  var tabs = document.querySelectorAll('.f-tab');
+  tabs.forEach(function(t) { t.classList.remove('active'); });
+  if (map[cat] !== undefined && tabs[map[cat]]) tabs[map[cat]].classList.add('active');
 }
 </script>
 <script src="nav.js"></script>

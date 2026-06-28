@@ -13,7 +13,7 @@
 }
 .ph-bg {
   position: absolute; inset: 0;
-  background: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1600&q=85') center/cover no-repeat;
+  background: url('gallery7.jpeg') center/cover no-repeat /* ✏️ EDIT IMAGE: SERVICES — Page hero background */;
 }
 .ph-bg::after {
   content: ''; position: absolute; inset: 0;
@@ -211,8 +211,6 @@
 .ps-t-n { font-family: var(--serif); font-size: 2.2rem; color: var(--dark); line-height: 1; }
 .ps-t-l { font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.45); }
 
-@media(max-width:860px){
-  .svc-block { grid-template-columns: 1fr; direction: ltr !important; }
   .svc-block > * { direction: ltr !important; }
   .svc-img { min-height: 240px; }
   .svc-body { padding: 3rem 1.2rem; }
@@ -224,10 +222,36 @@
   .phases-grid { grid-template-columns: 1fr; }
   .payment-strip { grid-template-columns: 1fr; padding: 2.5rem 1.5rem; }
 }
+
+/* ✏️ EDIT VIDEO: video slot styles - do not remove */
+.hero-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+  z-index: 0;
+}
+
+
+@media(max-width:860px){
+  .page-hero{height:45vh;min-height:300px;padding:0 1.2rem 3rem}
+  .svc-block{grid-template-columns:1fr;direction:ltr!important}
+  .svc-block>*{direction:ltr!important}
+  .svc-img{min-height:240px}
+  .svc-body{padding:3rem 1.2rem}
+  #workforce{grid-template-columns:1fr;padding:4rem 1.2rem;gap:2rem}
+  .wf-grid{grid-template-columns:1fr 1fr}
+  #solar{padding:4rem 1.2rem}
+  .pkg-grid{grid-template-columns:1fr 1fr}
+  .tax-note{grid-template-columns:1fr}
+  #process{padding:4rem 1.2rem}
+  .phases-grid{grid-template-columns:1fr}
+  .payment-strip{grid-template-columns:1fr;padding:2.5rem 1.5rem}
+}
 </style>
 </head>
 <body data-page="services" data-solidnav="1">
-<div style="padding-top:72px">
+<div class="page-wrap">
 
 <div class="page-hero">
   <div class="ph-bg"></div>
@@ -239,7 +263,7 @@
 
 <!-- SERVICE 1 -->
 <div class="svc-block">
-  <div class="svc-img" style="background-image:url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=900&q=80')">
+  <div class="svc-img" style="background-image:url('gallery2.jpeg')" data-edit="SERVICES — Service 1 (Electrical Installation) image">
     <div class="svc-img-overlay"></div>
   </div>
   <div class="svc-body reveal">
@@ -264,7 +288,7 @@
 
 <!-- SERVICE 2 -->
 <div class="svc-block flip" style="background:var(--offwhite)">
-  <div class="svc-img" style="background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=900&q=80')">
+  <div class="svc-img" style="background-image:url('intro.jpeg')" data-edit="SERVICES — Service 2 (Maintenance) image">
     <div class="svc-img-overlay" style="background:linear-gradient(to left,transparent 55%,var(--offwhite) 100%)"></div>
   </div>
   <div class="svc-body reveal" style="background:var(--offwhite)">
@@ -288,7 +312,7 @@
 
 <!-- SERVICE 3 -->
 <div class="svc-block">
-  <div class="svc-img" style="background-image:url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=900&q=80')">
+  <div class="svc-img" style="background-image:url('gallery3.jpeg')" data-edit="SERVICES — Service 3 (Solar) image">
     <div class="svc-img-overlay"></div>
   </div>
   <div class="svc-body reveal">
