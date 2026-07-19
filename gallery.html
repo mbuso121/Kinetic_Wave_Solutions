@@ -55,7 +55,9 @@
 }
 .ci-card { background: var(--dark); padding: 2rem 1.5rem; cursor: pointer; border-bottom: 3px solid transparent; transition: background 0.25s, border-color 0.25s; text-align: center; color: var(--white); }
 .ci-card:hover { background: rgba(255,255,255,0.04); }
-.ci-card.active { border-bottom-color: var(--green); background: rgba(125,197,39,0.06); }
+.ci-card.active { border-bottom-color: var(--green); background: rgba(125,197,39,0.06); color: var(--dark); }
+.ci-card.active .ci-name { color: var(--dark); }
+.ci-card.active .ci-count { color: rgba(15,26,10,0.55); }
 .ci-icon { width: 44px; height: 44px; background: rgba(125,197,39,0.1); border: 1px solid rgba(125,197,39,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; transition: background 0.25s, border-color 0.25s; }
 .ci-card.active .ci-icon, .ci-card:hover .ci-icon { background: rgba(125,197,39,0.18); border-color: rgba(125,197,39,0.45); }
 .ci-icon svg { width: 20px; height: 20px; fill: none; stroke: var(--green); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
@@ -109,8 +111,8 @@
 
 @media(max-width:860px){
   .page-hero{height:45vh;min-height:300px;padding:0 1.2rem 3rem}
-  #cat-intro{grid-template-columns:1fr 1fr;padding:2rem 1rem;gap:1px}
-  #cat-intro .ci-card:last-child{grid-column:1 / -1}
+  #cat-intro{grid-template-columns:1fr 1fr;padding:2rem 1rem;gap:1px;margin-bottom:1rem}
+  #cat-intro .ci-card:last-child{grid-column:1 / -1;padding-right:4.5rem}
   .masonry{columns:2}
   #gallery-wrap{padding:2rem 1.2rem}
   .lb-nav{width:100%;left:0}
@@ -138,7 +140,7 @@
 <div id="cat-intro">
   <div class="ci-card active" onclick="setFilter('all', this)">
     <div class="ci-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
-    <div class="ci-name" style="color:var(--white)">All Work</div>
+    <div class="ci-name">All Work</div>
     <div class="ci-count">All categories</div>
   </div>
   <div class="ci-card" onclick="setFilter('solar-ground', this)">

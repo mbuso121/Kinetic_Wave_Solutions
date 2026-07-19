@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /404.html
 
-Sitemap: http://www.kineticwavesolutions.co.za/sitemap.xml
+Sitemap: https://mbuso121.github.io/sitemap.xml
